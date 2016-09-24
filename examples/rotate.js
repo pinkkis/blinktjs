@@ -18,7 +18,6 @@ setTimeout(() => {
 timer = setInterval(() => {
 	blinkt.rotateLeft();
 	blinkt.draw();
-	console.log('rotate');
 }, 100);
 
 setTimeout(() => {

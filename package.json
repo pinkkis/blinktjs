@@ -1,5 +1,5 @@
 {
-  "name": "blinkt.js",
+  "name": "blinktjs",
   "version": "0.1.0",
   "description": "Node.js class for the Pimoroni Blinkt!",
   "main": "./src/index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pinkkis/blinkt.js.git"
+    "url": "git+https://github.com/pinkkis/blinktjs.git"
   },
   "keywords": [
     "node",
@@ -24,7 +24,7 @@
   "author": "Kristian Koivisto-Kokko <pinkkis@gmail.com> (http://pinkkis.com/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pinkkis/blinkt.js/issues"
+    "url": "https://github.com/pinkkis/blinktjs/issues"
   },
-  "homepage": "https://github.com/pinkkis/blinkt.js#readme"
+  "homepage": "https://github.com/pinkkis/blinktjs#readme"
 }
