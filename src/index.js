@@ -1,7 +1,7 @@
 'use strict';
 
 const wpi = require('wiring-pi');
-const convert = require('./hslConvert');
+const convert = require('./colorConvert');
 
 class Blinkt {
 	constructor(options) {
