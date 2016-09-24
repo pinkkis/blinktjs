@@ -4,11 +4,13 @@ const wpi = require('wiring-pi');
 
 class Blinkt {
 	constructor(options) {
-		options = options || {};
+		this.options = options || {};
+
+		this.options.debug && console.log('blinkt.js - ctor::opt', this.options);
 
 		// pins - give defaults
-		this.pinDAT = options.DAT || 23;
-		this.pinCLK = options.CLK || 24;
+		this.pinDAT = this.options.DAT || 23;
+		this.pinCLK = this.options.CLK || 24;
 
 		// Set WPI to GPIO mode
 		wpi.setup('gpio');
@@ -17,15 +19,23 @@ class Blinkt {
 		wpi.pinMode(this.pinDAT, wpi.OUTPUT);
 		wpi.pinMode(this.pinCLK, wpi.OUTPUT);
 
-		this.pixelCount = options.pixelCount || 8;
-		this.brightness = options.defaultBrightness || 0.5;
+		this.options.debug && console.log('blinkt.js - ctor::opt pin setup');
+
+		this.pixelCount = this.options.pixelCount || 8;
+		this.brightness = this.options.defaultBrightness || 0.5;
 		this.pixels = [];
 
 		// init pixels
-		this.setAll(0, 0, 0);
+		for (let i = 0; i < this.pixelCount; i++) {
+			this.pixels.push([0, 0, 0, this.brightness]);
+		}
+
+		this.options.debug && console.log('blinkt.js - ctor::opt pixels', this.pixels);
 	}
 
 	_clocker(count) {
+		this.options.debug && console.log('blinkt.js - _clocker', count);
+
 		wpi.digitalWrite(this.pinDAT, 0);
 		for (var i = 0; i < count; i++) {
 			wpi.digitalWrite(this.pinCLK, 1);
@@ -46,15 +56,24 @@ class Blinkt {
 	}
 
 	setPixel(i, r, g, b, a) {
-		if (typeof i === 'number' && i >= 0 && i < this.pixelCount) {
-			if (a === 'undefined') { a = this.defaultBrightness; }
+		this.options.debug && console.log('blinkt.js - setPixel', arguments);
 
-			this.pixels[i] = [r, g, b, a];
+		if (typeof i === 'number' && i >= 0 && i < this.pixelCount) {
+			if (a === undefined) { a = this.brightness; }
+
+			this.pixels[i] = [
+				parseInt(r, 10) & 255,
+				parseInt(g, 10) & 255,
+				parseInt(b, 10) & 255,
+				parseInt((31.0 * a), 10) & 0b11111
+			];
 		}
 	}
 
 	setAll(r, g, b, a) {
-		if (a === 'undefined') { a = this.defaultBrightness; }
+		this.options.debug && console.log('blinkt.js - setAll', arguments);
+
+		if (a === undefined) { a = this.brightness; }
 
 		this.pixels.forEach((pixel, i, arr) => {
 			this.setPixel(i, r, g, b, a);
@@ -62,14 +81,25 @@ class Blinkt {
 	}
 
 	rotateLeft() {
+		this.options.debug && console.log('blinkt.js - rotateLeft');
+
 		this.pixels.push(this.pixels.shift());
 	}
 
 	rotateRight() {
+		this.options.debug && console.log('blinkt.js - rotateRight');
+
 		this.pixels.unshift(this.pixels.pop());
 	}
 
+	off() {
+		this.options.debug && console.log('blinkt.js - off');
+		this.setAll(0,0,0,0);
+		this.draw();
+	}
+
 	draw() {
+		this.options.debug && console.log('blinkt.js - draw');
 		this._clocker(32);
 
 		this.pixels.forEach((pixel, i, arr) => {
