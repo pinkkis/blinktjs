@@ -1,5 +1,5 @@
 const Blinkt = require('../src/index.js');
-const blinkt = new Blinkt({defaultBrightness: 0.3, colorFormat: 'HSV'});
+const blinkt = new Blinkt({defaultBrightness: 0.1, colorFormat: 'HSV'});
 
 let timer, i = 0;
 

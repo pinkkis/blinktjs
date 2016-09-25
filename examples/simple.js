@@ -6,7 +6,7 @@ setTimeout(() => {
 	blinkt.setAll(255, 0, 0);
 	blinkt.draw();
 	console.log('red');
-}, 500);
+}, 0);
 
 setTimeout(() => {
 	blinkt.setAll(0, 255, 0);
@@ -18,8 +18,8 @@ setTimeout(() => {
 	blinkt.setAll(0, 0, 255);
 	blinkt.draw();
 	console.log('blue');
-}, 1500);
+}, 2000);
 
 setTimeout(() => {
 	console.log('end');
-}, 2000);
+}, 4000);
