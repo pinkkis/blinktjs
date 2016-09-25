@@ -11,13 +11,12 @@ class Blinkt {
 		this.pinDAT = this.options.DAT || 23;
 		this.pinCLK = this.options.CLK || 24;
 
-		// Set WPI to GPIO mode
+		// WiringPi setup
 		wpi.setup('gpio');
-
-		// Set pin mode to output
 		wpi.pinMode(this.pinDAT, wpi.OUTPUT);
 		wpi.pinMode(this.pinCLK, wpi.OUTPUT);
 
+		this.clearOnExit = this.options.clearOnExit === false ? false : true;
 		this.format = this.options.colorFormat || 'RGB';
 		this.pixelCount = this.options.pixelCount || 8;
 		this.brightness = this.options.defaultBrightness || 0.5;
@@ -26,6 +25,13 @@ class Blinkt {
 		// init pixels
 		for (let i = 0; i < this.pixelCount; i++) {
 			this.pixels.push([0, 0, 0, this.brightness]);
+		}
+
+		// register listener to turn off lights on exit
+		if (this.clearOnExit) {
+			process.on('exit', () => {
+				this.off();
+			});
 		}
 	}
 

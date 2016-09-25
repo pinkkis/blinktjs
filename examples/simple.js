@@ -21,6 +21,5 @@ setTimeout(() => {
 }, 1500);
 
 setTimeout(() => {
-	blinkt.off();
 	console.log('end');
 }, 2000);

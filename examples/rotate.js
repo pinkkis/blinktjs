@@ -22,6 +22,5 @@ timer = setInterval(() => {
 
 setTimeout(() => {
 	clearInterval(timer);
-	blinkt.off();
 	console.log('end');
 }, 5000);
