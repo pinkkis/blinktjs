@@ -5,21 +5,21 @@ const convert = require('./colorConvert');
 
 class Blinkt {
 	constructor(options) {
-		this.options = options || {};
+		options = options || {};
 
 		// pins - give defaults
-		this.pinDAT = this.options.DAT || 23;
-		this.pinCLK = this.options.CLK || 24;
+		this.pinDAT = options.DAT || 23;
+		this.pinCLK = options.CLK || 24;
 
 		// WiringPi setup
 		wpi.setup('gpio');
 		wpi.pinMode(this.pinDAT, wpi.OUTPUT);
 		wpi.pinMode(this.pinCLK, wpi.OUTPUT);
 
-		this.clearOnExit = this.options.clearOnExit === false ? false : true;
-		this.format = this.options.colorFormat || 'RGB';
-		this.pixelCount = this.options.pixelCount || 8;
-		this.brightness = this.options.defaultBrightness || 0.5;
+		this.clearOnExit = options.clearOnExit === false ? false : true;
+		this.format = options.colorFormat || 'RGB';
+		this.pixelCount = options.pixelCount || 8;
+		this.brightness = options.defaultBrightness || 0.5;
 		this.pixels = [];
 
 		// init pixels

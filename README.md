@@ -4,11 +4,11 @@ Control your Pimoroni Blinkt! in javascript. 8 APA102 LEDs for your Raspberry Pi
 
 ## Usage
 
-Set the pixels with `setPixel()` or `setAll()` and call `draw()` to write the pixels to the device. Calling `off()` will turn all pixels to 0,0,0 with 0 brightness.
+Set the pixels with `setPixel()` or `setAll()` and call `draw()` to write the pixels to the device.
 
 * `setPixel(0, 255, 255, 255, 0.5);` - setPixel takes the pixel number (0-7), rgb values and optionally brightness
 * `setAll(255,255,255, 0.3)` - sets all pixels to a color, with an optional brightness value
-* `off()` - turn off all lights
+* `off()` - turn off all lights. This calls `draw()` internally, as it's meant to be a single call to turn everything off.
 * `rotateLeft()` - shift leds to the left
 * `rotateRight()` - shift leds to the right
 * `draw()` - always call draw to write the pixel data to blinkt
