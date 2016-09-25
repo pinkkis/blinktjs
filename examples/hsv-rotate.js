@@ -9,7 +9,7 @@ blinkt.off();
 timer = setInterval(() => {
 	i++;
 	for (let p = 0; p < 8; p++) {
-		blinkt.setPixel(3, ((p * 10) + (i * 5)) % 360, 100, 100);
+		blinkt.setPixel(p, ((p * 10) + (i * 5)) % 360, 100, 100);
 	}
 	blinkt.draw();
 }, 25);
